@@ -101,8 +101,9 @@ img.inner-textbox{position:absolute; top:10px; right:18px;}
     div.campos {margin-bottom: 8px;}
 }
 
-@media only screen and (min-width: 0px) and (max-width: 400px) {
-	div.campos p{font-size:11px; line-height:12px;}
+@media only screen and (min-width: 0px) and (max-width: 480px) {
+	div.campos{margin-bottom:10px;}
+	div.campos p{display:none;}
 	div.campos h2{font-size:14px;}
 	.ui-footer h3.ui-title{font-size:12px;}
 	div#panel-acerca p{margin-bottom:15px; font-size:13px; line-height:15px;}
