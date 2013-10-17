@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>ID Validator | Validador de Digito Verificador para Cédulas y RUC's</title>
+  <meta name="description" content="ID Validator es una aplicación móvil para validar un número de cédula o ruc de acuerdo al dígito verficador" />
+  
+  <!-- Styles -->
+  <link href="css/jquery.mobile-1.3.1.css" rel="stylesheet" type="text/css" />
+  <link href="css/redmond/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" />
+  <link href="css/site.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<!-- Home -->
+<div data-role="page" id="page1">
+
+    <!-- Acerca de -->
+    <div id="panel-acerca" data-role="panel" data-display="overlay" data-position="left" data-theme="a">
+        <h2>Acerca de<br />ID Validator 1.0</h2>
+
+        <p>ID Validator, es una aplicación movil para verificar si un número de Ruc o Cédula es correcto, en base a las fórmulas del digito verificador.</p>
+		<p>Desarrollado por<p>
+		<ul>
+            <li>Autor: Ing. Bogdan Gabriel Babici</li>
+            <li>Cel: <a href="tel:0989080415">0989080415</a></li>
+			<li>Mail: <a href="mailto:gabriel.babici@gmail.com">gabriel.babici@gmail.com</a></li>
+            <li>Facebook: <a href="http://www.facebook.com/bbabici" target="_blank">http://www.facebook.com/bbabici</a></li>
+            <li>Twitter: <a href="http://twitter.com/kingbogdan84" target="_blank">@kingbogdan84</a></li>
+			<li>Skype: kingbogdan84</li>
+			<li>Guayaquil - Ecuador</li>
+        </ul>
+
+        <a href="javascript:void(0);" data-role="button" data-rel="close" data-icon="close">Cerrar</a>
+    </div>
+	
+	<div data-theme="a" data-role="header">
+        <h1>
+            ID Validator
+        </h1>
+        <p class="subtitulo">Validador de Números de RUC o Cédula</p>
+    </div>
+	
+	<div data-role="content">
+		<div class="campos">
+			<p>Seleccione el tipo de documento a validar (RUC o Cédula), luego ingrese el número del documento.<br/> La validación se da mientras escribe, si aparece una X en rojo el documento es inválido, y si aparece un visto bueno verde el número de documento es correcto</p>
+		</div>
+	
+		<div class="campos">
+			<h2>Seleccione el Tipo de Documento</h2>
+		</div>
+		
+		<div class="campos">
+			<select name="tipoId" id="tipoId">
+				<option value="C" selected="selected">Cédula</option>
+				<option value="R">RUC</option>
+			</select>
+		</div>
+		
+		<br/>
+		
+		<div class="campos">
+			<h2>Ingrese el Número del Documento</h2>
+		</div>
+		
+		<div class="campos">
+			<input type="text" id="numeroDocumento" name="numeroDocumento" class="identificacion" data-tipo="C" maxlength="10" />
+			<img src="images/alert-question.png" class="val-cedula-ruc inner-textbox" />
+		</div>
+		
+		<div class="notification" data-type="Warning" data-title="" data-description="">
+        </div>
+	
+	</div>
+	
+	<div data-theme="a" data-role="footer" data-position="fixed">
+		<h3>Desarrollado por: Bogdan Gabriel Babici</h3>
+        <div data-role="navbar">
+		    <ul>
+                <li><a id="btnNuevo" href="javascript:void(0);" data-icon="home">Nuevo</a></li>
+			    <li><a id="btnAcerca" href="#panel-acerca" data-icon="info">Acerca de</a></li>
+		    </ul>
+	    </div>
+    </div>
+	
+<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="js/jquery.mobile-1.3.1.min.js" type="text/javascript"></script>
+<script src="js/jquery-validador-ruc-cedula.js" type="text/javascript"></script>
+<script src="js/jquery-notification.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	$("#tipoId").change(function(){
+		if ($(this).val() == "C"){
+			$("#numeroDocumento").attr("maxlength","10");
+			$("#numeroDocumento").attr("data-tipo","C");
+		}else{
+			$("#numeroDocumento").attr("maxlength","13");
+			$("#numeroDocumento").attr("data-tipo","R");
+		}
+	});
+	
+	$("#btnNuevo").click(function(){
+		$("img.val-cedula-ruc").attr("src", "images/alert-question.png");
+		$(".notification").hide();
+		$("#numeroDocumento").val("");
+		$("#numeroDocumento").focus();
+	});
+	
+	function CedulaRucInvalidoOnInit(obj) {
+$(".notification").showNotification("Error en No. de Identificación", "El Dígito verificador de una de las Cédulas o RUCs no es válido.", "warning", 2500);
+	}
+
+	function CedulaRucInvalidoOnChange(obj) {
+		$(".notification").showNotification("Error en No. de Identificación", "El Dígito verificador de una de las Cédulas o RUCs no es válido.", "warning");
+	}
+	
+	function CedulaRucValidosOnKeyUp(obj) {
+		var isOk = obj.attr("data-identificacion-correcta");
+		if (isOk == "false")
+		{
+			$(".notification").showNotification("Ok", "El Dígito verificador del documento es correcto.", "information", 2500);
+		}
+	}
+	
+</script>
+
+</body>
+</html>
